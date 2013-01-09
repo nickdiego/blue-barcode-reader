@@ -1,0 +1,3 @@
+[submodule "libs/qt-bluehid-service"]
+	path = libs/qt-bluehid-service
+	url = git@bitbucket.org:diegoyam/qt-bluehid-service.git

@@ -25,18 +25,7 @@ MOBILITY += connectivity
 # The .cpp file which was generated for your project. Feel free to hack it.
 HEADERS += hidstringsender.h hidkeymapper.h
 SOURCES += main.cpp hidstringsender.cpp hidkeymapper.cpp
-include($$PWD/../../qt-bluehid-service.pri)
-
-## TODO: This approach should work!
-#win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../src/release/ -lbluetoothhid
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../../src/debug/ -lbluetoothhid
-#else:symbian: LIBS += -lbluetoothhid
-#else:unix: LIBS += -L$$OUT_PWD/../../src/ -lbluetoothhid
-#INCLUDEPATH += $$PWD/../../src
-#DEPENDPATH += $$PWD/../../src
-#win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../src/release/bluetoothhid.lib
-#else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../src/debug/bluetoothhid.lib
-#else:unix:!symbian: PRE_TARGETDEPS += $$OUT_PWD/../../src/libbluetoothhid.a
+include($$PWD/libs/libs.pri)
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)

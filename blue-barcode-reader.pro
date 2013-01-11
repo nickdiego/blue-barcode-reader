@@ -23,12 +23,20 @@ CONFIG += mobility
 MOBILITY += connectivity
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-HEADERS += hidstringsender.h hidkeymapper.h
-SOURCES += main.cpp hidstringsender.cpp hidkeymapper.cpp
-include($$PWD/libs/libs.pri)
+HEADERS += \
+    src/bluetooth/hidstringsender.h \
+    src/bluetooth/hidkeymapper.h
 
-# Please do not modify the following two lines. Required for deployment.
+SOURCES += \
+    src/main.cpp \
+    src/bluetooth/hidstringsender.cpp \
+    src/bluetooth/hidkeymapper.cpp
+
+INCLUDEPATH += src src/bluetooth
+
+include($$PWD/libs/libs.pri)
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
+
 qtcAddDeployment()
 
 OTHER_FILES += \

@@ -7,7 +7,7 @@
 #DEPENDPATH += $$PWD/qt-bluehid-service
 #win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/qt-bluehid-service/release/bluetoothhid.lib
 #else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/qt-bluehid-service/debug/bluetoothhid.lib
-#else:unix:!symbian: PRE_TARGETDEPS += $$OUT_PWD/qt-bluehid-service/libbluetoothhid.a
+#else:unix:!symbian: PRE_TARGETDEPS += $$OUT_PWD/qt-bluehid-service/libbluetoothhid.so
 
 # Fallback to approach above
 include ($$PWD/qt-bluehid-service/qt-bluehid-service.pri)

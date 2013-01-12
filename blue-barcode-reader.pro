@@ -1,49 +1,109 @@
 TEMPLATE = app
+
 TARGET = bluebarcodereader
 
-# Add more folders to ship with the application, here
-qml.source = qml/bluebarcodereader
-qml.target = qml
-DEPLOYMENTFOLDERS = qml
+QT += core gui declarative
 
-symbian:TARGET.UID3 = 0xE96EF9BF
+TEMP_DIR = $$OUT_PWD/tmp
+MOC_DIR = $$TEMP_DIR
+OBJECTS_DIR = $$TEMP_DIR
+RCC_DIR = $$TEMP_DIR
 
-# Smart Installer package's UID
-# This UID is from the protected range and therefore the package will
-# fail to install if self-signed. By default qmake uses the unprotected
-# range value if unprotected UID is defined for the application and
-# 0x2002CCCF value if protected UID is given to the application
-#symbian:DEPLOYMENT.installer_header = 0x2002CCCF
-
-# Allow network access on Symbian
-symbian:TARGET.CAPABILITY += NetworkServices
-# Speed up launching on MeeGo/Harmattan when using applauncherd daemon
-CONFIG += qdeclarative-boostable
+## Qt Mobility Multimedia for acessing the camera
 CONFIG += mobility
-MOBILITY += connectivity
+MOBILITY += multimedia
 
-# The .cpp file which was generated for your project. Feel free to hack it.
 HEADERS += \
-    src/bluetooth/hidstringsender.h \
-    src/bluetooth/hidkeymapper.h
+    src/declarativeview.h \
+    src/settings.h \
+    src/reader/codereaderthread.h \
+    src/reader/codereader.h \
+    src/camera/frameobserver.h \
+    src/camera/yuv2rgb.h \
+    src/camera/myvideosurface.h \
+    src/camera/customcamera.h
 
 SOURCES += \
     src/main.cpp \
-    src/bluetooth/hidstringsender.cpp \
-    src/bluetooth/hidkeymapper.cpp
+    src/declarativeview.cpp \
+    src/settings.cpp \
+    src/reader/codereaderthread.cpp \
+    src/reader/codereader.cpp \
+    src/camera/yuv2rgb.cpp \
+    src/camera/myvideosurface.cpp \
+    src/camera/customcamera.cpp
 
-INCLUDEPATH += src src/bluetooth
 
-include($$PWD/libs/libs.pri)
-include(qmlapplicationviewer/qmlapplicationviewer.pri)
+INCLUDEPATH += \
+    src/reader \
+    src/camera
 
-qtcAddDeployment()
+RESOURCES += \
+    qml/qml.qrc \
+    images/images.qrc
 
 OTHER_FILES += \
-    qtc_packaging/debian_harmattan/rules \
-    qtc_packaging/debian_harmattan/README \
-    qtc_packaging/debian_harmattan/manifest.aegis \
-    qtc_packaging/debian_harmattan/copyright \
-    qtc_packaging/debian_harmattan/control \
-    qtc_packaging/debian_harmattan/compat \
-    qtc_packaging/debian_harmattan/changelog
+    qml/MainView.qml \
+    qml/widgets/Button.qml
+
+## TODO: Uncomment when integrating with bluetooth stuff
+## FIXME: When ?? is uncommented, app doesn't start properly, investigate it!
+include(bluetooth.pri)
+include(libs/libs.pri)
+
+symbian: {
+    TARGET.UID3 = 0xe6b188f7
+
+    TARGET.EPOCSTACKSIZE = 0x14000
+    TARGET.EPOCHEAPSIZE = 0x20000 0x8000000
+
+    TARGET.CAPABILITY += \
+        LocalServices \
+        ReadUserData \
+        WriteUserData \
+        UserEnvironment
+
+    RESOURCES += \
+        qml/symbian/symbian.qrc
+
+    OTHER_FILES += \
+        qml/symbian/symbian.qml
+
+    QMAKE_DISTCLEAN += $$PWD/.make.cache $$PWD/*.sis $$TEMP_DIR
+}
+
+contains(MEEGO_EDITION, harmattan) {
+
+    DEFINES += Q_OS_HARMATTAN
+
+    target.path = /opt/$${TARGET}/bin
+
+    desktopfile.files = qtc_packaging/$${TARGET}_harmattan.desktop
+    desktopfile.path = /usr/share/applications
+
+    icon.files = qtc_packaging/$${TARGET}80.png
+    icon.path = /usr/share/icons/hicolor/80x80/apps
+
+    INSTALLS += desktopfile icon target
+
+    RESOURCES += \
+        qml/meego/meego.qrc
+
+    OTHER_FILES += \
+        qml/meego/meego.qml
+
+    OTHER_FILES += \
+        qtc_packaging/debian_harmattan/rules \
+        qtc_packaging/debian_harmattan/README \
+        qtc_packaging/debian_harmattan/manifest.aegis \
+        qtc_packaging/debian_harmattan/copyright \
+        qtc_packaging/debian_harmattan/control \
+        qtc_packaging/debian_harmattan/compat \
+        qtc_packaging/debian_harmattan/changelog
+
+    QMAKE_DISTCLEAN += -r $$TEMP_DIR
+}
+
+unix:!symbian {
+    QMAKE_DISTCLEAN += -r $$TEMP_DIR
+}

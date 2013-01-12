@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>symbian.qml</file>
+    </qresource>
+</RCC>

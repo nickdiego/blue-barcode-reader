@@ -1,24 +1,27 @@
+QMLDIR = ../qml
+IMGDIR = ../images
+
 RESOURCES += \
-    $$PWD/qml/qml.qrc \
-    $$PWD/images/images.qrc
+    $$QMLDIR/qml.qrc \
+    $$IMGDIR/images.qrc
 
 OTHER_FILES += \
-    $$PWD/qml/MainView.qml \
-    $$PWD/qml/widgets/Button.qml
+    $$QMLDIR/MainView.qml \
+    $$QMLDIR/widgets/Button.qml
 
 symbian: {
     RESOURCES += \
-        $$PWD/qml/symbian/symbian.qrc
+        $$QMLDIR/symbian/symbian.qrc
 
     OTHER_FILES += \
-        $$PWD/qml/symbian/symbian.qml
+        $$QMLDIR/symbian/symbian.qml
 }
 
 contains(MEEGO_EDITION, harmattan) {
 
     RESOURCES += \
-        $$PWD/qml/meego/meego.qrc
+        $$QMLDIR/meego/meego.qrc
 
     OTHER_FILES += \
-        $$PWD/qml/meego/meego.qml
+        $$QMLDIR/meego/meego.qml
 }

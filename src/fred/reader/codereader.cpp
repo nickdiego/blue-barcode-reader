@@ -1,4 +1,5 @@
 #include <QtDebug>
+#include <QDateTime>
 
 #include "codereader.h"
 #include "codereaderthread.h"
@@ -34,9 +35,10 @@ bool CodeReader::isProcessing() const
 void CodeReader::imageProcessingFinished(const QImage &image, const QString &code)
 {
     if (code.isEmpty()) {
-        qDebug("Code NOT found.");
+        //qDebug("Code NOT found.");
     } else {
-        qDebug() << "Code found: " << code;
+        qDebug() << QDateTime::currentDateTime() << " Code found: " << code;
+        emit codeFound(code);
     }
 
     m_processing = false;

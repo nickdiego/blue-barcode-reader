@@ -5,6 +5,9 @@
 
 #include "settings.h"
 
+class HIDServer;
+class HIDStringSender;
+
 class DeclarativeView : public QDeclarativeView
 {
     Q_OBJECT
@@ -21,8 +24,11 @@ private slots:
 
 private:
     void registerTypes();
+    void setContextProperties();
 
     Settings m_settings;
+    HIDServer *m_hidServer;
+    HIDStringSender *m_hidStringSender;
 };
 
 #endif

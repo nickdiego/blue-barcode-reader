@@ -3,12 +3,20 @@
 #include <QtGui/QDesktopWidget>
 
 #include "declarativeview.h"
-#include "customcamera.h"
+#include "barcodereader.h"
+#include "barcodeviewport.h"
+//#include "customcamera.h"
+
+#include "hidserver.h"
+#include "hidstringsender.h"
 
 DeclarativeView::DeclarativeView(QWidget *parent)
-    : QDeclarativeView(parent)
+    : QDeclarativeView(parent),
+      m_hidServer(new HIDServer(this)),
+      m_hidStringSender(new HIDStringSender(*m_hidServer, this))
 {
     registerTypes();
+    setContextProperties();
 
 #if defined(Q_OS_SYMBIAN)
     connect(&m_settings, SIGNAL(orientationChanged()),
@@ -42,6 +50,8 @@ void DeclarativeView::load()
     setGeometry(0, 0, 480, 800);
     show();
 #endif
+
+    m_hidServer->start();
 }
 
 #if defined(Q_OS_SYMBIAN)
@@ -56,9 +66,20 @@ void DeclarativeView::changeOrientation()
 }
 #endif
 
+
 void DeclarativeView::registerTypes()
 {
-    rootContext()->setContextProperty("settings", &m_settings);
+    qDebug() << "Registering BarcodeReader new types";
 
-    qmlRegisterType<CustomCamera>("Widgets", 1, 0, "CustomCamera");
+    qmlRegisterType<BarcodeReader>("rubyx.BarcodeReader", 1, 0, "BarcodeReader");
+    qmlRegisterType<BarcodeViewport>("rubyx.BarcodeReader", 1, 0, "BarcodeViewport");
+
+    qmlRegisterUncreatableType<HIDServer>("BlueCodeReader", 1, 0, "HIDServer",
+                                          "Only used for reading HIDServer properties");
+}
+
+void DeclarativeView::setContextProperties()
+{
+    engine()->rootContext()->setContextProperty("hidServer", m_hidServer);
+    engine()->rootContext()->setContextProperty("hidStringSender", m_hidStringSender);
 }

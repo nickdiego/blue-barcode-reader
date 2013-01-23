@@ -1,3 +1,5 @@
+#include <QDateTime>
+
 #include "codereaderthread.h"
 
 CodeReaderThread::CodeReaderThread(QObject *parent)
@@ -67,7 +69,8 @@ QString CodeReaderThread::processImage(const QImage &image) const
     QString code("");
 
     if (!image.isNull())
-        code = "123456789";
+        if ((QDateTime::currentDateTime().time().second() % 10) == 0)
+            code = "123456789";
 
     return code;
 }

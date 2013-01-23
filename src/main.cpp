@@ -4,11 +4,9 @@
 
 int main(int argc, char **argv)
 {
-    QApplication application(argc, argv);
+    QScopedPointer<QApplication> application(new QApplication(argc, argv));
+    QScopedPointer<DeclarativeView> view(new DeclarativeView);
 
-    DeclarativeView view;
-
-    view.load();
-
-    return application.exec();
+    view->load();
+    return application->exec();
 }

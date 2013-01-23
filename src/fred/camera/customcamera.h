@@ -38,6 +38,7 @@ public slots:
 
 signals:
     void codeCheckChanged();
+    void codeFound(const QString &code);
 
 protected:
     void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);

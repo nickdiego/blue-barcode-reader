@@ -1,2 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = qt-bluehid-service
+CONFIG += ordered
+SUBDIRS = zbar \
+    declarative-zbar/declarative-zbar.pro \
+    qt-bluehid-service

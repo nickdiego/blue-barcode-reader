@@ -13,30 +13,16 @@ MOBILITY += multimedia
 
 HEADERS += \
     declarativeview.h \
-    settings.h \
-    reader/codereaderthread.h \
-    reader/codereader.h \
-    camera/frameobserver.h \
-    camera/yuv2rgb.h \
-    camera/myvideosurface.h \
-    camera/customcamera.h
+    settings.h
 
 SOURCES += \
     main.cpp \
     declarativeview.cpp \
-    settings.cpp \
-    reader/codereaderthread.cpp \
-    reader/codereader.cpp \
-    camera/yuv2rgb.cpp \
-    camera/myvideosurface.cpp \
-    camera/customcamera.cpp
-
-INCLUDEPATH += \
-    reader \
-    camera
+    settings.cpp
 
 ## TODO: Uncomment when integrating with bluetooth stuff
 ## FIXME: When ?? is uncommented, app doesn't start properly, investigate it!?
+#include(fred.pri)
 include(bluetooth.pri)
 include(linkage.pri)
 

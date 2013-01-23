@@ -18,6 +18,9 @@ public:
 
     bool isProcessing() const;
 
+signals:
+    void codeFound(const QString &code);
+
 private slots:
     void imageProcessingFinished(const QImage &image, const QString &code);
 

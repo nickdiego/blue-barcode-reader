@@ -36,7 +36,7 @@ void CustomCamera::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(widget)
 
     painter->setPen(Qt::NoPen);
-    painter->setBrush(Qt::black);
+    painter->setBrush(Qt::red);
     painter->drawRect(boundingRect());
 
     QTransform newTransform;
@@ -108,6 +108,9 @@ void CustomCamera::start()
     if (m_camera->status() == QCamera::LoadedStatus) {
         m_camera->start();
     }
+
+    connect(m_codeReader, SIGNAL(codeFound(QString)), this, SIGNAL(codeFound(QString)));
+    setCodeCheck(true);
 }
 
 void CustomCamera::stop()
@@ -120,17 +123,21 @@ void CustomCamera::stop()
     if (m_camera->status() == QCamera::ActiveStatus) {
         m_camera->stop();
     }
+
+    setCodeCheck(false);
+    disconnect(m_codeReader, SIGNAL(codeFound(QString)), this, SIGNAL(codeFound(QString)));
 }
 
 void CustomCamera::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
 {
-    if (newGeometry != oldGeometry) {
-        setTransformOriginPoint(newGeometry.width(), 0);
+    qDebug() << "geometryChanged: " << newGeometry.width() << "x" << newGeometry.height();
+//    if (newGeometry != oldGeometry) {
+//        setTransformOriginPoint(newGeometry.width(), 0);
 
-        m_transform.reset();
-        m_transform.translate(newGeometry.width(), 0);
-        m_transform.rotate(90);
-    }
+//        m_transform.reset();
+//        m_transform.translate(newGeometry.width(), 0);
+//        m_transform.rotate(90);
+//    }
 
     QDeclarativeItem::geometryChanged(newGeometry, oldGeometry);
 }

@@ -12,14 +12,15 @@ PageStackWindow {
     Page {
         id: mainPage
 
-        orientationLock: {
+        orientationLock: PageOrientation.LockLandscape
+        /*{
             if (settings.orientation == 0)
                 PageOrientation.LockLandscape;
             else if (settings.orientation == 1)
                 PageOrientation.LockPortrait;
             else
                 PageOrientation.Automatic;
-        }
+        }*/
 
         MainView {
             id: mainView

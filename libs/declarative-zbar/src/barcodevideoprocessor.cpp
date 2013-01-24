@@ -192,7 +192,7 @@ BarcodeVideoProcessor::BarcodeVideoProcessor(QObject *parent)
 {
     TRACE
     d->processTimerId = -1;
-    d->processInterval = 500;
+    d->processInterval = 750;
     d->viewport = NULL;
     d->enabled = true;
 
@@ -244,8 +244,11 @@ void BarcodeVideoProcessor::setEnabled(bool enabled)
 
 void BarcodeVideoProcessor::onDecoded(int type, const QString &data)
 {
+    if (enabled()) {
+        DEBUGX << "decoded " << data;
+        emit decode(type, data);
+    }
     setEnabled(false);
-    emit decode(type, data);
 }
 
 void BarcodeVideoProcessor::setProcessInterval(int interval)

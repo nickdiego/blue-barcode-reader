@@ -2,10 +2,10 @@
 Encoding=UTF-8
 Version=1.0
 Type=Application
-Terminal=true
+Terminal=false
 Name=Blue Barcode
-Exec=/usr/bin/invoker --type=d -s /opt/bluebarcodereader/bin/bluebarcodereader
-Icon=/usr/share/icons/hicolor/80x80/apps/bluebarcodereader80.png
+Exec=/usr/bin/invoker --type=d -s /opt/bluebarcode-reader/bin/bluebarcode-reader
+Icon=/usr/share/icons/hicolor/80x80/apps/bluebarcode-reader80.png
 X-Window-Icon=
 X-HildonDesk-ShowInToolbar=true
 X-Osso-Type=application/x-executable

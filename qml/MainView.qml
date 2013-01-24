@@ -11,12 +11,10 @@ Item {
     Component.onCompleted: {
         //reader.set_config("ean13.config=enable");
         reader.start();
-        focusTimer.start();
     }
 
     Component.onDestruction: {
         reader.stop();
-        focusTimer.stop();
     }
 
     BarcodeReader {
@@ -117,14 +115,29 @@ Item {
             text: {
                 if (hidServer.state === HIDServer.CONNECTED) {
                     return "connected";
-                } else {
+                } if (hidServer.state === HIDServer.LISTENING) {
                     return "disconnected";
+                } else {
+                    return "stopped";
                 }
             }
         }
     }
 
+    Connections {
+        target: appInfo
+        onFocusLost: main.state = "standby"
+        onFocusGot: main.state = "reading"
+    }
+
     states: [
+        State {
+            name: "standby"
+            PropertyChanges { target: reader; enabled: false }
+            PropertyChanges { target: topBar; visible: false }
+            PropertyChanges { target: dialog; visible: true }
+            PropertyChanges { target: indicator; text: "Stand by" }
+        },
         State {
             name: "decoded"
             PropertyChanges { target: reader; enabled: false }

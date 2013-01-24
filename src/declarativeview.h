@@ -7,13 +7,14 @@
 
 class HIDServer;
 class HIDStringSender;
+class ApplicationInfo;
 
 class DeclarativeView : public QDeclarativeView
 {
     Q_OBJECT
 
 public:
-    DeclarativeView(QWidget *parent = 0);
+    DeclarativeView(ApplicationInfo *appInfo, QWidget *parent = 0);
 
     void load();
 
@@ -29,6 +30,7 @@ private:
     Settings m_settings;
     HIDServer *m_hidServer;
     HIDStringSender *m_hidStringSender;
+    ApplicationInfo *m_appInfo;
 };
 
 #endif

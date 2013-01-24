@@ -1,11 +1,8 @@
 TEMPLATE = app
-TARGET = bluebarcodereader
+TARGET = bluebarcode-reader
 QT += gui declarative
 
 include (../resources.pri)
-
-# Speed up launching on MeeGo/Harmattan when using applauncherd daemon
-CONFIG += qdeclarative-boostable
 
 ## Qt Mobility Multimedia for acessing the camera
 CONFIG += mobility
@@ -13,17 +10,21 @@ MOBILITY += multimedia
 
 HEADERS += \
     declarativeview.h \
-    settings.h
+    settings.h \
+    applicationinfo.h
 
 SOURCES += \
     main.cpp \
     declarativeview.cpp \
-    settings.cpp
+    settings.cpp \
+    applicationinfo.cpp
 
 ## TODO: Uncomment when integrating with bluetooth stuff
 ## FIXME: When ?? is uncommented, app doesn't start properly, investigate it!?
 #include(fred.pri)
 include(bluetooth.pri)
+#include(zbar.pri)
+include(declarative-zbar.pri)
 include(linkage.pri)
 
 TEMP_DIR = $$OUT_PWD/tmp
@@ -47,6 +48,12 @@ symbian: {
 }
 
 contains(MEEGO_EDITION, harmattan) {
+
+    # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
+    CONFIG += qdeclarative-boostable
+    contains(CONFIG,qdeclarative-boostable):contains(MEEGO_EDITION,harmattan) {
+        DEFINES += HARMATTAN_BOOSTER
+    }
 
     desktopfile.files = ../qtc_packaging/$${TARGET}_harmattan.desktop
     desktopfile.path = /usr/share/applications

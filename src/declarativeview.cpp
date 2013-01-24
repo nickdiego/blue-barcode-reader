@@ -5,15 +5,16 @@
 #include "declarativeview.h"
 #include "barcodereader.h"
 #include "barcodeviewport.h"
-//#include "customcamera.h"
 
 #include "hidserver.h"
 #include "hidstringsender.h"
+#include "applicationinfo.h"
 
-DeclarativeView::DeclarativeView(QWidget *parent)
+DeclarativeView::DeclarativeView(ApplicationInfo *appInfo, QWidget *parent)
     : QDeclarativeView(parent),
       m_hidServer(new HIDServer(this)),
-      m_hidStringSender(new HIDStringSender(*m_hidServer, this))
+      m_hidStringSender(new HIDStringSender(*m_hidServer, this)),
+      m_appInfo(appInfo)
 {
     registerTypes();
     setContextProperties();
@@ -80,6 +81,7 @@ void DeclarativeView::registerTypes()
 
 void DeclarativeView::setContextProperties()
 {
+    engine()->rootContext()->setContextProperty("appInfo", m_appInfo);
     engine()->rootContext()->setContextProperty("hidServer", m_hidServer);
     engine()->rootContext()->setContextProperty("hidStringSender", m_hidStringSender);
 }

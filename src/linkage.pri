@@ -29,18 +29,32 @@ contains(MEEGO_EDITION, harmattan) {
 
 #####
 # linking against "libdeclarativezbar" - statically
-OUT_DZBAR = $$OUT_PWD/../libs/declarative-zbar
-PWD_DZBAR = $$PWD/../libs/declarative-zbar
+#OUT_DZBAR = $$OUT_PWD/../libs/declarative-zbar
+#PWD_DZBAR = $$PWD/../libs/declarative-zbar
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_DZBAR/release/ -ldeclarativezbar
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_DZBAR/debug/ -ldeclarativezbar
-else:symbian: LIBS += -ldeclarativezbar
-else:unix: LIBS += -L$$OUT_DZBAR -ldeclarativezbar
+#win32:CONFIG(release, debug|release): LIBS += -L$$OUT_DZBAR/release/ -ldeclarativezbar
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_DZBAR/debug/ -ldeclarativezbar
+#else:symbian: LIBS += -ldeclarativezbar
+#else:unix: LIBS += -L$$OUT_DZBAR -ldeclarativezbar
 
-INCLUDEPATH += $$PWD_DZBAR/src
-DEPENDPATH += $$PWD_DZBAR/src
+#INCLUDEPATH += $$PWD_DZBAR/src
+#DEPENDPATH += $$PWD_DZBAR/src
 
-#####
+#contains(MEEGO_EDITION, harmattan) {
+
+#    declarativezbar.files = \
+#        $$OUT_DZBAR/libdeclarativezbar.so      \
+#        $$OUT_DZBAR/libdeclarativezbar.so.1    \
+#        $$OUT_DZBAR/libdeclarativezbar.so.1.0  \
+#        $$OUT_DZBAR/libdeclarativezbar.so.1.0.0
+#    declarativezbar.path = /opt/$${TARGET}/lib
+
+#    QMAKE_LFLAGS += -Wl,--rpath=/opt/$${TARGET}/lib
+
+#    INSTALLS += declarativezbar
+#}
+
+######
 # linking against "libzbar" - statically
 OUT_ZBAR = $$OUT_PWD/../libs/zbar
 PWD_ZBAR = $$PWD/../libs/zbar

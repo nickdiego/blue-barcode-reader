@@ -67,6 +67,11 @@
 
 #ifdef __cplusplus
 
+#ifdef QT_CORE_LIB
+#  include <QDebug>
+#  define DEBUGX qDebug() << QDateTime::currentDateTime().toString("[hh:mm:ss:zzz] ")
+#endif
+
 /** C++ namespace for library interfaces */
 namespace zbar {
     extern "C" {

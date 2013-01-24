@@ -27,6 +27,7 @@
 #include <QMutex>
 #include <QWaitCondition>
 #include <QEvent>
+#include <QDateTime>
 
 #include <QtCore/QDebug>
 
@@ -109,7 +110,7 @@ public:
     void pushEvent (QEvent *e)
     {
 	QMutexLocker locker(&mutex);
-	qDebug() << "image queue size: " << queue.size();
+        DEBUGX << "Queue size: " << queue.size();
         if (queue.size() > 0)
             return;
         queue.append(e);

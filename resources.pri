@@ -6,8 +6,11 @@ RESOURCES += \
     $$IMGDIR/images.qrc
 
 OTHER_FILES += \
-    $$QMLDIR/MainView.qml \
-    $$QMLDIR/widgets/Button.qml
+    $$QMLDIR/CodeReaderView.qml \
+    $$QMLDIR/widgets/Button.qml \
+    $$QMLDIR//widgets/TopBar.qml \
+    $$QMLDIR//MainView.qml \
+    $$QMLDIR//constants.js
 
 symbian: {
     RESOURCES += \
@@ -25,3 +28,6 @@ contains(MEEGO_EDITION, harmattan) {
     OTHER_FILES += \
         $$QMLDIR/meego/meego.qml
 }
+
+
+

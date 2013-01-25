@@ -1,5 +1,5 @@
 TEMPLATE = lib
-#CONFIG += staticlib
+CONFIG += staticlib
 TARGET = declarativezbar
 
 QT          += core gui declarative

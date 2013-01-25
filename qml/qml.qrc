@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>MainView.qml</file>
         <file>widgets/Button.qml</file>
+        <file>CodeReaderView.qml</file>
+        <file>MainView.qml</file>
+        <file>widgets/TopBar.qml</file>
+        <file>constants.js</file>
     </qresource>
 </RCC>

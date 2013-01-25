@@ -245,7 +245,7 @@ void BarcodeVideoProcessor::setEnabled(bool enabled)
 void BarcodeVideoProcessor::onDecoded(int type, const QString &data)
 {
     if (enabled()) {
-        DEBUGX << "decoded " << data;
+        DEBUGX << "decoded - type: " << type << " data: " << data;
         emit decode(type, data);
     }
     setEnabled(false);

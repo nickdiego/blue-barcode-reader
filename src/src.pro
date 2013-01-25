@@ -24,7 +24,7 @@ SOURCES += \
 #include(fred.pri)
 include(bluetooth.pri)
 #include(zbar.pri)
-include(declarative-zbar.pri)
+#include(declarative-zbar.pri)
 include(linkage.pri)
 
 TEMP_DIR = $$OUT_PWD/tmp
